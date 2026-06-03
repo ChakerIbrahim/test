@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard - Great Number Game</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 50px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 560px;
+            width: 100%;
+        }
+        h1 { font-size: 1.8rem; color: #2d3748; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th {
+            background: #4a90e2;
+            color: white;
+            padding: 12px;
+            font-size: 0.9rem;
+        }
+        td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+        tr:nth-child(even) { background: #f7fafc; }
+        tr:first-child td { font-weight: bold; color: #d69e2e; }
+        .empty { color: #a0aec0; margin: 24px 0; }
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 10px 28px;
+            background: #4a90e2;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        .back-link:hover { background: #357abd; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🏆 Leaderboard</h1>
+
+        {% if winners %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Attempts</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for w in winners %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ w.name }}</td>
+                        <td>{{ w.attempts }}</td>
+                        <td>{{ w.date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="empty">No winners yet. Be the first! 🎯</p>
+        {% endif %}
+
+        <a href="{% url 'index' %}" class="back-link">← Play Again</a>
+    </div>
+</body>
+</html>
